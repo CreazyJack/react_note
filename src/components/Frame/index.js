@@ -6,10 +6,13 @@ import "./Frame.less"
 
 const { Header, Content, Sider } = Layout
 
+// 使用 antd 中的 layout 栅格功能
 class Frame extends Component {
+  // 为 onClick 功能创建函数，通过引入 withRouter 来使用 <Route></Route> 组件中的属性
   onMenuClick = ({ key }) => {
     this.props.history.push(key)
   }
+
   render() {
     return (
       // 将无用的菜单组件删除，只保留一级菜单
