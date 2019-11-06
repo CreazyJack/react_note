@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
-import { Layout, Menu, Breadcrumb } from 'antd'
+import { Layout, Menu, Icon } from 'antd'
+import { withRouter } from 'react-router-dom'
 import Logo from './Logo.png'
 import "./Frame.less"
 
 const { Header, Content, Sider } = Layout
 
-export default class index extends Component {
+class Frame extends Component {
+  onMenuClick = ({ key }) => {
+    this.props.history.push(key)
+  }
   render() {
     return (
       // 将无用的菜单组件删除，只保留一级菜单
-      <Layout>
+      <Layout style={{height: '100%'}}>
         <Header className="header zgm-header">
           <div className="zgm-logo">
             <img src={Logo} alt="" />
@@ -19,21 +23,16 @@ export default class index extends Component {
           <Sider width={200} style={{ background: '#fff' }}>
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
+              selectedKeys={[this.props.location.pathname]}
+              onClick={this.onMenuClick}
               style={{ height: '100%', borderRight: 0 }}
             >
-             {
-               this.props.menus.map(item =>  <Menu.Item key={item.pathname}>{item.title}</Menu.Item>)
-             }
+              {
+                this.props.menus.map(item => <Menu.Item key={item.pathname}><Icon type={item.icon} />{item.title}</Menu.Item>)
+              }
             </Menu>
           </Sider>
           <Layout style={{ padding: '0 24px 24px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
             <Content
               style={{
                 background: '#fff',
@@ -50,3 +49,5 @@ export default class index extends Component {
     )
   }
 }
+
+export default withRouter(Frame)
