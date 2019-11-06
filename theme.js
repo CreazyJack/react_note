@@ -13,4 +13,8 @@ module.exports = {
   '@border-color-base': '#d9d9d9', // 边框色
   '@box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)', // 浮层阴影
 }
+<<<<<<< HEAD
 // 这是theme的修改，从远程到本地
+=======
+// 这是theme的修改，可以自定义外观，现在来做一个远程到本地的同步测试
+>>>>>>> 41e2ff97d0d46909afb5e707c25faf5165dc3bcb
