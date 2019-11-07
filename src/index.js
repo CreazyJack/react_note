@@ -9,7 +9,7 @@ import { ConfigProvider } from 'antd'
 
 
 ReactDOM.render(
-  <ConfigProvider>
+  <ConfigProvider locale={zhCN}>
     <Router>
       <Switch>
         {/* TODO: 权限，需要登陆才能访问 */}
