@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 // import { Button, ConfigProvider, Pagination } from 'antd'
 // import zhCN from 'antd/es/locale/zh_CN';
-import { adiminRoutes } from './routes'
+import { adminRoutes } from './routes'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Frame } from './components'
 
-const menus = adiminRoutes.filter(route => route.isNav === true)
+const menus = adminRoutes.filter(route => route.isNav === true)
 
 class App extends Component {
   render() {
@@ -14,7 +14,7 @@ class App extends Component {
       <Frame menus={menus}>
         <p>这里是公共的部分</p>
         <Switch>
-          {adiminRoutes.map(route => {
+          {adminRoutes.map(route => {
             return <Route
               key={route.pathname}
               path={route.pathname}
@@ -22,7 +22,7 @@ class App extends Component {
                 return <route.component {...routeProps}></route.component>
               }}></Route>
           })}
-          <Redirect to={adiminRoutes[0].pathname} from='/admin' exact ></Redirect>
+          <Redirect to={adminRoutes[0].pathname} from='/admin' exact ></Redirect>
           <Redirect to='/404'></Redirect>
         </Switch>
       </Frame >

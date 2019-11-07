@@ -11,12 +11,13 @@ export const mainRoutes = [
   },
 ]
 
-export const adiminRoutes = [
+export const adminRoutes = [
   {
     pathname: '/admin/Dashboard',
     component: Dashboard,
     title: '仪表盘',
     isNav: true,
+    icon: 'dashboard'
   },
   
   {
@@ -24,7 +25,8 @@ export const adiminRoutes = [
     component: Article,
     title: '文章管理',
     isNav: true,
-    exact: true
+    exact: true,
+    icon: 'unordered-list'
   },
   {
     pathname: '/admin/Edit',
@@ -35,5 +37,6 @@ export const adiminRoutes = [
     component: settings,
     title: '设置',
     isNav: true,
+    icon: 'setting'
   },
 ]
