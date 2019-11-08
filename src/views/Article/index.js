@@ -11,7 +11,7 @@ const dataSource = [
     key: '2',
     name: '胡彦祖',
     age: 42,
-    address: '西湖区湖底公园1号',
+    address: '西湖区湖底公园10号',
   },
 ];
 
@@ -27,9 +27,12 @@ const columns = [
     key: 'age',
   },
   {
-    title: '住址',
-    dataIndex: 'address',
-    key: 'address',
+    title: '操作',
+    dataIndex: 'actions',
+    key: 'actions',
+    render: (text, record, index) => {
+      return <Button>操作</Button>
+    }
   },
 ];
 export default class ArticleList extends Component {
@@ -46,6 +49,10 @@ export default class ArticleList extends Component {
           <Table
             dataSource={dataSource}
             columns={columns} 
+            pagination={{
+              total: 50,
+              pageSize: 1
+            }}
           />
         </Card>
 
