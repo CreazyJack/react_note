@@ -3,6 +3,8 @@ import { Card, Button, Table, Tag } from 'antd'
 import { getArticles } from '../../components/requests'
 import moment from 'moment'
 
+
+const ButtonGroup = Button.Group
 // 在这里，中文类名
 const displayTitle = {
   amount: '阅读量',
@@ -21,10 +23,9 @@ export default class ArticleList extends Component {
       total: 0
     }
   }
-// 将几个相关的方法独立出来写，最后在一个方法中汇总
+  // 将几个相关的方法独立出来写，最后在一个方法中汇总
   createClumns = (columnKeys) => {
-    return columnKeys.map(item => {
-      console.log(item)
+    const columns = columnKeys.map(item => {
       if (item === 'amount') {
         return {
           title: displayTitle[item],
@@ -38,7 +39,7 @@ export default class ArticleList extends Component {
         return {
           title: displayTitle[item],
           render: (text, record) => {
-            const {createAt} = record
+            const { createAt } = record
             return <Tag color={record.amount > 200 ? 'red' : 'green'}>{moment(createAt).format('YYYY年MM月DD日，HH:mm:ss')}</Tag>
           }
         }
@@ -50,6 +51,19 @@ export default class ArticleList extends Component {
         }
       }
     })
+    columns.push({
+      title: '操作',
+      render: (text, record) => {
+        return (
+          <ButtonGroup size='small'>
+            <Button size='small' type='primary'>编辑</Button>
+            <Button size='small' type='danger'>操作</Button>
+          </ButtonGroup>
+        )
+      },
+      key: 'action'
+    })
+    return columns
   }
 
   getData = () => {
