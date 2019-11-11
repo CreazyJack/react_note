@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-// import { Button, ConfigProvider, Pagination } from 'antd'
-// import zhCN from 'antd/es/locale/zh_CN';
 import { adminRoutes } from './routes'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Frame } from './components'

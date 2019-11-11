@@ -20,7 +20,8 @@ export default class ArticleList extends Component {
     this.state = {
       dataSource: [],
       columns: [],
-      total: 0
+      total: 0,
+      isLoading: false
     }
   }
   // 将几个相关的方法独立出来写，最后在一个方法中汇总
@@ -57,7 +58,7 @@ export default class ArticleList extends Component {
         return (
           <ButtonGroup size='small'>
             <Button size='small' type='primary'>编辑</Button>
-            <Button size='small' type='danger'>操作</Button>
+            <Button size='small' type='danger'>删除</Button>
           </ButtonGroup>
         )
       },
@@ -67,14 +68,15 @@ export default class ArticleList extends Component {
   }
 
   getData = () => {
+    this.setState({
+      isLoading: true
+    })
     getArticles()
       .then(
         resp => {
           console.log(resp)
-          console.log(Object.keys(resp.data.list[0]))
           const columnKeys = Object.keys(resp.data.list[0])
           const columns = this.createClumns(columnKeys)
-          console.log(columns)
           this.setState({
             total: resp.data.total,
             dataSource: resp.data.list,
@@ -82,6 +84,14 @@ export default class ArticleList extends Component {
           })
         }
       )
+      .catch(err => {
+        // 处理错误，虽然有全局错误处理
+      })
+      .finally(() => {
+        this.setState({
+          isLoading: false
+        })
+      })
   }
 
   componentDidMount() {
@@ -101,6 +111,7 @@ export default class ArticleList extends Component {
             rowKey={record => record.id}
             dataSource={this.state.dataSource}
             columns={this.state.columns}
+            loading={this.state.isLoading}
             pagination={{
               total: this.state.total,
               hideOnSinglePage: true
