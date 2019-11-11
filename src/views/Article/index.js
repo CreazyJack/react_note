@@ -21,7 +21,9 @@ export default class ArticleList extends Component {
       dataSource: [],
       columns: [],
       total: 0,
-      isLoading: false
+      isLoading: false,
+      offset: 0,
+      limited: 10
     }
   }
   // 将几个相关的方法独立出来写，最后在一个方法中汇总
@@ -71,7 +73,7 @@ export default class ArticleList extends Component {
     this.setState({
       isLoading: true
     })
-    getArticles()
+    getArticles(this.state.offset, this.state.limited)
       .then(
         resp => {
           console.log(resp)
@@ -94,6 +96,23 @@ export default class ArticleList extends Component {
       })
   }
 
+  onPageChange = (page, pageSize) => {
+    console.log({ page, pageSize })
+    this.setState({
+      offset: pageSize * (page - 1),
+      limited: pageSize
+    }, () => this.getData())
+  }
+  onShowSizeChange = (current, size) => {
+    // 和产品聊的时候要仔细问清，是要返回第一页还是留在当前页，如果是留在当前页，则 offset: size * (current - 1)
+    console.log({ current, size })
+    this.setState({
+      offset: 0,
+      limited: size
+    }, () => this.getData())
+  }
+
+
   componentDidMount() {
     this.getData()
   }
@@ -113,8 +132,13 @@ export default class ArticleList extends Component {
             columns={this.state.columns}
             loading={this.state.isLoading}
             pagination={{
+              current: this.state.offset / this.state.limited + 1,
               total: this.state.total,
-              hideOnSinglePage: true
+              hideOnSinglePage: true,
+              onChange: this.onPageChange,
+              showQuickJumper: true,
+              showSizeChanger: true,
+              onShowSizeChange: this.onShowSizeChange,
             }}
           />
         </Card>
