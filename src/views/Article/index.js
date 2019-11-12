@@ -111,7 +111,9 @@ export default class ArticleList extends Component {
       limited: size
     }, () => this.getData())
   }
-
+  toExcel = () => {
+    
+  }
 
   componentDidMount() {
     this.getData()
@@ -123,7 +125,7 @@ export default class ArticleList extends Component {
           title="文章列表"
           bordered={false}
           style={{}}
-          extra={<Button>导出</Button>}
+          extra={<Button onClick={this.toExcel}>导出excel</Button>}
         >
           <Table
             // 给每一项一个key
