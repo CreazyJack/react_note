@@ -112,7 +112,7 @@ export default class ArticleList extends Component {
     }, () => this.getData())
   }
   toExcel = () => {
-    
+    console.log('ok')
   }
 
   componentDidMount() {
