@@ -13,10 +13,13 @@ class Frame extends Component {
     this.props.history.push(key)
   }
 
+
   render() {
+    const selectKeysArr = this.props.location.pathname.split('/')
+    selectKeysArr.length = 3
     return (
       // 将无用的菜单组件删除，只保留一级菜单
-      <Layout style={{height: '100%'}}>
+      <Layout style={{ height: '100%' }}>
         <Header className="header zgm-header">
           <div className="zgm-logo">
             <img src={Logo} alt="" />
@@ -26,7 +29,8 @@ class Frame extends Component {
           <Sider width={200} style={{ background: '#fff' }}>
             <Menu
               mode="inline"
-              selectedKeys={[this.props.location.pathname]}
+              // 被选中标签高亮显示
+              selectedKeys={[selectKeysArr.join('/')]}
               onClick={this.onMenuClick}
               style={{ height: '100%', borderRight: 0 }}
             >

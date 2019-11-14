@@ -8,7 +8,7 @@ export default class Edit extends Component {
           title="编辑文章"
           bordered={false}
           style={{}}
-          extra={ <Button>保存</Button> }
+          extra={<Button>取消</Button> }
           actions={[<Button>取消</Button>,<Button>保存</Button>]}
         >
           表单区域
