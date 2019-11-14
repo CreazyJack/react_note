@@ -19,7 +19,11 @@ export const adminRoutes = [
     isNav: true,
     icon: 'dashboard'
   },
-  
+  // 当出现包含关系的路径时，长路径放在段路径前面
+  {
+    pathname: '/admin/Article/Edit',
+    component: Edit,
+  },
   {
     pathname: '/admin/Article',
     component: Article,
@@ -28,10 +32,7 @@ export const adminRoutes = [
     exact: true,
     icon: 'unordered-list'
   },
-  {
-    pathname: '/admin/Edit',
-    component: Edit
-  },
+ 
   {
     pathname: '/admin/settings',
     component: settings,

@@ -20,7 +20,6 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   (resp) => {
-    console.log(resp)
     if (resp.data.code === 200) {
       return resp.data
     } else {
@@ -30,7 +29,13 @@ service.interceptors.response.use(
   }
 )
 
+// 获取文章列表
 export const getArticles = (offset = 0, limited = 10) => {
-  return service.post('/api/v1/articleList',{offset, limited})
+  return service.post('/api/v1/articleList', { offset, limited })
 }
 
+// 通过id删除文章
+export const deleteArt = (id) => {
+  // 此处有两种方式，一种是 return service.post('/api/v1/articleDelete',{id})
+  return service.post(`/api/v1/articleDelete/${id}`)
+}
