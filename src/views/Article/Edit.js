@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
-import { Card, Button, Form, Icon, Input } from 'antd'
-=======
 import { Card, Button, Form, Icon, Input, DatePicker } from 'antd'
 
 
->>>>>>> 1f3a92ed4a1af3458be44d9b0159a0de5b2d4011
 @Form.create()
 class Edit extends Component {
   handleSubmit = e => {
