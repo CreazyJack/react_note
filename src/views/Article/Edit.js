@@ -14,22 +14,10 @@ class Edit extends Component {
       if (!err) {
         console.log('Received values of form: ', values);
       }
-<<<<<<< HEAD
     });
   }
   render() {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
-=======
-    })
-  }
-
-  render() {
-    const { getFieldDecorator } = this.props.form
-    const formItemLayout = {
-      labelCol: { span: 6, offset: 0},
-      wrapperCol: { span: 8, offset: 0 },
-    }
->>>>>>> 1f3a92ed4a1af3458be44d9b0159a0de5b2d4011
     return (
       <Card
         title="编辑文章"
@@ -38,27 +26,6 @@ class Edit extends Component {
         extra={<Button>取消</Button>}
         actions={[<Button>取消</Button>, <Button>保存</Button>]}
       >
-<<<<<<< HEAD
-        <Form layout="inline" onSubmit={this.handleSubmit}>
-          <Form.Item>
-            {getFieldDecorator('username', {
-              rules: [
-                { required: true, message: 'Please input your username!' },
-                { min: 4, message: '不少于4位' },
-                { max: 10, message: '不大于10位' }
-              ],
-            })(
-              <Input
-                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="Username"
-              />,
-            )}
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" >
-              Log in
-          </Button>
-=======
         <Form layout="horizontal" onSubmit={this.handleSubmit} >
           <Form.Item label='标题' {...formItemLayout}>
             {getFieldDecorator('title', {
@@ -104,7 +71,6 @@ class Edit extends Component {
             <Button type="primary" htmlType="submit" >
               保存修改
             </Button>
->>>>>>> 1f3a92ed4a1af3458be44d9b0159a0de5b2d4011
           </Form.Item>
         </Form>
       </Card>
