@@ -10,10 +10,15 @@ class Edit extends Component {
       if (!err) {
         console.log('Received values of form: ', values);
       }
-    });
+    })
   }
+
   render() {
-    const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form
+    const { getFieldDecorator } = this.props.form
+    const formItemLayout = {
+      labelCol: { span: 6, offset: 0},
+      wrapperCol: { span: 8, offset: 0 },
+    }
     return (
       <Card
         title="编辑文章"
