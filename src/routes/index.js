@@ -1,4 +1,4 @@
-import { Dashboard, LogIn, NotFound, settings, Article, Edit } from '../views'
+import { Dashboard, LogIn, NotFound, settings, Article, Edit, Notifications } from '../views'
 
 export const mainRoutes = [
   {
@@ -23,6 +23,10 @@ export const adminRoutes = [
   {
     pathname: '/admin/Article/Edit',
     component: Edit,
+  },
+  {
+    pathname: '/admin/Notifications',
+    component: Notifications,
   },
   {
     pathname: '/admin/Article',

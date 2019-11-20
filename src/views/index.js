@@ -38,6 +38,12 @@ const Edit = Loadable(
     loading: Loading
   }
 )
+const Notifications = Loadable(
+  {
+    loader: () => import('./Notifications'),
+    loading: Loading
+  }
+)
 
 export {
   Dashboard,
@@ -45,5 +51,6 @@ export {
   NotFound,
   settings,
   Article,
-  Edit
+  Edit,
+  Notifications
 }
