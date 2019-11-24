@@ -7,6 +7,7 @@ const mapState = state => {
   const list = state.notifications
   return list
 } 
+
 @connect(mapState)
 class Notifications extends Component {
   render() {
