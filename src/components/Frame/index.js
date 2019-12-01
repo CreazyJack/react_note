@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Layout, Menu, Icon, notification, Badge, Dropdown, Avatar } from 'antd'
+import { Layout, Menu, Icon, Badge, Dropdown, Avatar } from 'antd'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Logo from './Logo.png'
@@ -21,8 +21,8 @@ class Frame extends Component {
   // 为 onClick 功能创建函数，通过引入 withRouter 来使用 <Route></Route> 组件中的属性
   onMenuClick = ({ key }) => { this.props.history.push(key) }
   onDropDownMenuClick = ({ key }) => { this.props.history.push(key) }
-  menu = (
-    <Menu>
+  dropDownMenu = () => (
+    <Menu onClick={this.onDropDownMenuClick}>
       <Menu.Item key='/admin/notifications'>
         <Badge dot>通知中心</Badge>
       </Menu.Item>
@@ -30,7 +30,7 @@ class Frame extends Component {
         个人设置
       </Menu.Item>
       <Menu.Item key='/logIn'>
-        推出登录
+        退出登录
       </Menu.Item>
     </Menu>
   )
@@ -47,15 +47,14 @@ class Frame extends Component {
             <img src={Logo} alt="" />
           </div>
           <div>
-          <Dropdown overlay={this.menu}>
-            <div>
+          <Dropdown overlay={this.dropDownMenu()} trigger={['click']}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
               <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
               <span>欢迎你，周广盟！</span>
               <Badge count={this.props.notificationsCount} offset={[-10,-10]}>
                 <Icon type='down'></Icon>
               </Badge>
             </div>
-            
           </Dropdown>
           </div>
         </Header>
