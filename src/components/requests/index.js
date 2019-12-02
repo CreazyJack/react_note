@@ -17,7 +17,6 @@ service.interceptors.request.use(
     return config
   }
 )
-
 service.interceptors.response.use(
   (resp) => {
     if (resp.data.code === 200) {
@@ -38,4 +37,14 @@ export const getArticles = (offset = 0, limited = 10) => {
 export const deleteArt = (id) => {
   // 此处有两种方式，一种是 return service.post('/api/v1/articleDelete',{id})
   return service.post(`/api/v1/articleDelete/${id}`)
+}
+
+// 获取文章阅读量
+export const getArticleReadAmount = () => {
+  return service.post('/api/v1/notifications')
+}
+
+// 获取通知列表
+export const getNotifications = () => {
+  return service.post('/api/v1/notifications')
 }

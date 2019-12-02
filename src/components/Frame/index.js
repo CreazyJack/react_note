@@ -4,27 +4,30 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Logo from './Logo.png'
 import "./Frame.less"
-
+import { getNotificationList } from '../../actions/Notifications'
 
 const { Header, Content, Sider } = Layout
 const mapState = state => {
-  console.log(state)
+  console.log('主框架的state', state)
   return {
     notificationsCount: state.notifications.list.filter(item => item.hasRead === false).length
   }
-} 
+}
 
 // 使用 antd 中的 layout 栅格功能
-@connect(mapState)
+@connect(mapState, { getNotificationList })
 @withRouter
 class Frame extends Component {
+  componentDidMount() {
+    this.props.getNotificationList()
+  }
   // 为 onClick 功能创建函数，通过引入 withRouter 来使用 <Route></Route> 组件中的属性
   onMenuClick = ({ key }) => { this.props.history.push(key) }
   onDropDownMenuClick = ({ key }) => { this.props.history.push(key) }
   dropDownMenu = () => (
     <Menu onClick={this.onDropDownMenuClick}>
       <Menu.Item key='/admin/notifications'>
-        <Badge dot>通知中心</Badge>
+        <Badge dot={this.props.notificationsCount === 0 ? false : true}>通知中心</Badge>
       </Menu.Item>
       <Menu.Item key='/admin/settings'>
         个人设置
@@ -34,11 +37,11 @@ class Frame extends Component {
       </Menu.Item>
     </Menu>
   )
-    
+
   render() {
     const selectKeysArr = this.props.location.pathname.split('/')
     selectKeysArr.length = 3
-    console.log(this.props)
+    console.log('ok', this.props)
     return (
       // 将无用的菜单组件删除，只保留一级菜单
       <Layout style={{ height: '100%' }}>
@@ -47,15 +50,15 @@ class Frame extends Component {
             <img src={Logo} alt="" />
           </div>
           <div>
-          <Dropdown overlay={this.dropDownMenu()} trigger={['click']}>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-              <span>欢迎你，周广盟！</span>
-              <Badge count={this.props.notificationsCount} offset={[-10,-10]}>
-                <Icon type='down'></Icon>
-              </Badge>
-            </div>
-          </Dropdown>
+            <Dropdown overlay={this.dropDownMenu()} trigger={['click']}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <span>欢迎你，周广盟！</span>
+                <Badge count={this.props.notificationsCount} offset={[-10, -10]}>
+                  <Icon type='down'></Icon>
+                </Badge>
+              </div>
+            </Dropdown>
           </div>
         </Header>
         <Layout>
