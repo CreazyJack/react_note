@@ -48,3 +48,8 @@ export const getArticleReadAmount = () => {
 export const getNotifications = () => {
   return service.post('/api/v1/notifications')
 }
+
+// 登录接口
+export const login = () => {
+  return service.post('/api/v1/login')
+}
