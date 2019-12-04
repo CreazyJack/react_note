@@ -33,6 +33,7 @@ export default class ArticleList extends Component {
   // 将几个相关的方法独立出来写，最后在一个方法中汇总
   createClumns = (columnKeys) => {
     const columns = columnKeys.map(item => {
+      console.log(item)
       if (item === 'amount') {
         return {
           title: displayTitle[item],

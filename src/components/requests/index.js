@@ -39,3 +39,8 @@ export const deleteArt = (id) => {
   // 此处有两种方式，一种是 return service.post('/api/v1/articleDelete',{id})
   return service.post(`/api/v1/articleDelete/${id}`)
 }
+
+//登录接口
+export const login = () => {
+  return service.post('/ap1/v1/login')
+}
