@@ -1,5 +1,7 @@
 import actionTypes from './actionTypes'
-import {getNotifications} from '../components/requests'
+import { getNotifications } from '../components/requests'
+
+
 const startPost = () => {
   return {
     type: actionTypes.START_NOTIFICATION_POST
@@ -27,7 +29,7 @@ export const MarkNotificationsAsRead = id => {
       dispatch(finishPost())
     }, 500)
   }
-} 
+}
 export const MarkAllAsRead = () => {
   return dispatch => {
     dispatch(startPost())
@@ -38,7 +40,7 @@ export const MarkAllAsRead = () => {
       dispatch(finishPost())
     }, 500)
   }
-} 
+}
 export const getNotificationList = () => {
   return dispatch => {
     dispatch(startPost())

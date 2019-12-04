@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Checkbox, Card } from 'antd';
 import './login.less'
+import { connect } from 'react-redux'
+import { login } from '../../actions/user'
+
 
 const wrapperCol = {
   xs: {
@@ -17,6 +20,13 @@ const wrapperCol = {
 const cardHeadStyle = {
   fontWeight: 'bold',
 }
+
+const mapState = state => ({
+  isLoading: state.isLoading,
+  isLogin: state.isLogin
+})
+
+@connect(mapState, { login })
 @Form.create({ name: 'normal_login' })
 class LoginForm extends Component {
   handleSubmit = e => {
@@ -24,12 +34,14 @@ class LoginForm extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        // this.props.login(values)
       }
     });
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    console.log(this.props.login())
     return (
       <div className='logPage'>
         <div className='bgBlur'></div>

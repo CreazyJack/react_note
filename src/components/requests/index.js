@@ -50,6 +50,6 @@ export const getNotifications = () => {
 }
 
 // 登录接口
-export const login = () => {
-  return service.post('/api/v1/login')
+export const loginRequest = (userInfo) => {
+  return service.post('/api/v1/login', {userInfo})
 }
