@@ -9,9 +9,11 @@ import { getNotificationList } from '../../actions/Notifications'
 const { Header, Content, Sider } = Layout
 const mapState = state => {
   console.log('主框架的state', state)
-  return {
-    notificationsCount: state.notifications.list.filter(item => item.hasRead === false).length
-  }
+  const notificationsCount = state.notifications.list.filter(item => item.hasRead === false).length
+  // 通过另一种方式判断👇
+  // const allISRead = state.notifications.list.every(item => item.hasRead === true)
+  const { isLogin } = state.user
+  return { notificationsCount, isLogin }
 }
 
 // 使用 antd 中的 layout 栅格功能

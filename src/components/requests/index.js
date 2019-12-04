@@ -8,6 +8,11 @@ const service = axios.create(
     baseURL: isDev ? 'http://rap2api.taobao.org/app/mock/236109' : ''
   }
 )
+const service1 = axios.create(
+  {
+    baseURL: isDev ? 'http://rap2api.taobao.org/app/mock/236109' : ''
+  }
+)
 
 service.interceptors.request.use(
   (config) => {
@@ -34,7 +39,7 @@ export const getArticles = (offset = 0, limited = 10) => {
 }
 
 // 通过id删除文章
-export const deleteArt = (id) => {
+export const deleteArt = id => {
   // 此处有两种方式，一种是 return service.post('/api/v1/articleDelete',{id})
   return service.post(`/api/v1/articleDelete/${id}`)
 }
@@ -50,6 +55,6 @@ export const getNotifications = () => {
 }
 
 // 登录接口
-export const loginRequest = (userInfo) => {
-  return service.post('/api/v1/login', {userInfo})
+export const loginRequest = (username = "0",password = "0") => {
+  return service1.post('/api/v1/login',{username, password})
 }
