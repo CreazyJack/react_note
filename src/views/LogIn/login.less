@@ -1,0 +1,55 @@
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+
+.logPage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  // 设置背景图片👇
+  // background-image: url(http://b-ssl.duitang.com/uploads/blog/201408/24/20140824180446_5kkwE.jpeg);
+  // background-size : cover;
+
+  // 模糊处理👇
+  .bgBlur {
+    // position           : absolute;
+    width: 100%;
+    height: 100%;
+    float: left;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+    filter: blur(0px);
+    background-image: url(http://b-ssl.duitang.com/uploads/blog/201408/24/20140824180446_5kkwE.jpeg);
+    background-size: cover;
+
+  }
+
+  .loginForm {
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    margin: -50px 0 0 0;
+    //设置内容为透明⬇
+    // background:rgba(255, 255, 255, 0.21);
+
+
+    // .ant-card-head-title {
+    //   font-weight: bold;
+    // }
+  }
+}

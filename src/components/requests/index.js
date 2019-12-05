@@ -1,9 +1,15 @@
 import axios from 'axios'
 import { message } from 'antd'
+import { userInfo } from 'os'
 
 const isDev = process.env.NODE_ENV === 'development'
 
 const service = axios.create(
+  {
+    baseURL: isDev ? 'http://rap2api.taobao.org/app/mock/236109' : ''
+  }
+)
+const service1 = axios.create(
   {
     baseURL: isDev ? 'http://rap2api.taobao.org/app/mock/236109' : ''
   }
@@ -34,12 +40,25 @@ export const getArticles = (offset = 0, limited = 10) => {
 }
 
 // 通过id删除文章
-export const deleteArt = (id) => {
+export const deleteArt = id => {
   // 此处有两种方式，一种是 return service.post('/api/v1/articleDelete',{id})
   return service.post(`/api/v1/articleDelete/${id}`)
 }
 
-//登录接口
-export const login = () => {
-  return service.post('/ap1/v1/login')
+// 获取文章阅读量
+export const getArticleReadAmount = () => {
+  return service.post('/api/v1/notifications')
+}
+
+// 获取通知列表
+export const getNotifications = () => {
+  return service.post('/api/v1/notifications')
+}
+
+// 登录接口
+// export const loginRequest = (username = "0",password = "0", remember = true) => {
+//   return service1.post('/api/v1/login',{username, password, remember})
+// }
+export const loginRequest = ({ username, password, remember } = userInfo) => {
+  return service1.post('/api/v1/login', { username, password, remember })
 }

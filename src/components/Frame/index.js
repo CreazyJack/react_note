@@ -5,17 +5,22 @@ import { withRouter } from 'react-router-dom'
 import Logo from './Logo.png'
 import "./Frame.less"
 import { getNotificationList } from '../../actions/Notifications'
-
+import { logOut } from '../../actions/user'
 const { Header, Content, Sider } = Layout
 const mapState = state => {
   console.log('主框架的state', state)
+  // 通过另一种方式判断👇
+  // const allISRead = state.notifications.list.every(item => item.hasRead === true)
   return {
-    notificationsCount: state.notifications.list.filter(item => item.hasRead === false).length
+    notificationsCount: state.notifications.list.filter(item => item.hasRead === false).length,
+    isLogin: state.user.isLogin,
+    avatar: state.user.avatar,
+    displayName: state.user.displayName
   }
 }
 
 // 使用 antd 中的 layout 栅格功能
-@connect(mapState, { getNotificationList })
+@connect(mapState, { getNotificationList,logOut })
 @withRouter
 class Frame extends Component {
   componentDidMount() {
@@ -52,8 +57,8 @@ class Frame extends Component {
           <div>
             <Dropdown overlay={this.dropDownMenu()} trigger={['click']}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                <span>欢迎你，周广盟！</span>
+                <Avatar src={this.props.avatar} />
+                <span>欢迎你，{this.props.displayName}！</span>
                 <Badge count={this.props.notificationsCount} offset={[-10, -10]}>
                   <Icon type='down'></Icon>
                 </Badge>
