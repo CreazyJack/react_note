@@ -17,7 +17,6 @@ service.interceptors.request.use(
     return config
   }
 )
-
 service.interceptors.response.use(
   (resp) => {
     if (resp.data.code === 200) {
