@@ -7,7 +7,15 @@ import { connect } from 'react-redux'
 
 const menus = adminRoutes.filter(route => route.isNav === true)
 // 使用箭头函数简写时，如果返回的是一个对象，应该用（）括起来👇
-const mapState = state => ({ isLoading: state.user.isLoading, isLogin: state.user.isLogin })
+const mapState = state => {
+  return {
+    isLoading: state.user.isLoading,
+    isLogin: state.user.isLogin,
+    role: state.user.role
+  }
+}
+
+
 
 @connect(mapState)
 class App extends Component {
@@ -25,15 +33,18 @@ class App extends Component {
                 key={route.pathname}
                 path={route.pathname}
                 render={(routeProps) => {
-                  return <route.component {...routeProps}></route.component>
-                }}></Route>
+                  console.log(route)
+                  const hasPermission = route.role.includes(this.props.role)
+                  return hasPermission ? <route.component {...routeProps} /> : <Redirect to='/admin/NoAuth' />
+                }}
+              />
             })}
-            <Redirect to={adminRoutes[0].pathname} from='/admin' exact ></Redirect>
-            <Redirect to='/404'></Redirect>
+            <Redirect to={adminRoutes[0].pathname} from='/admin' exact />>
+            <Redirect to='/404' />
           </Switch>
         </Frame >
         :
-        <Redirect to='/LogIn'></Redirect>
+        <Redirect to='/LogIn' />
     )
   }
 }

@@ -1,13 +1,15 @@
-import { Dashboard, LogIn, NotFound, settings, Article, Edit, Notifications } from '../views'
+import { Dashboard, LogIn, NotFound, settings, Article, Edit, Notifications, NoAuth } from '../views'
 
 export const mainRoutes = [
   {
     pathname: '/LogIn',
-    component: LogIn
+    component: LogIn,
+    role: ['001','002','003']
   },
   {
     pathname: '/404',
-    component: NotFound
+    component: NotFound,
+    role: ['001','002','003']
   },
 ]
 
@@ -17,16 +19,24 @@ export const adminRoutes = [
     component: Dashboard,
     title: '仪表盘',
     isNav: true,
-    icon: 'dashboard'
+    icon: 'dashboard',
+    role: ['001','002','003']
   },
   // 当出现包含关系的路径时，长路径放在段路径前面
   {
     pathname: '/admin/Article/Edit',
     component: Edit,
+    role: ['001']
   },
   {
     pathname: '/admin/Notifications',
     component: Notifications,
+    role: ['001','002','003']
+  },
+  {
+    pathname: '/admin/NoAuth',
+    component: NoAuth,
+    role: ['001','002','003']
   },
   {
     pathname: '/admin/Article',
@@ -34,7 +44,8 @@ export const adminRoutes = [
     title: '文章管理',
     isNav: true,
     exact: true,
-    icon: 'unordered-list'
+    icon: 'unordered-list',
+    role: ['001','002']
   },
  
   {
@@ -42,6 +53,7 @@ export const adminRoutes = [
     component: settings,
     title: '设置',
     isNav: true,
-    icon: 'setting'
+    icon: 'setting',
+    role: ['001']
   },
 ]

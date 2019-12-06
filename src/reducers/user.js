@@ -5,7 +5,6 @@ const isLogin = (
   ||
   Boolean(window.sessionStorage.getItem('authToken'))
 )
-console.log(isLogin)
 const userMsg = (
   JSON.parse(window.localStorage.getItem('userMsg'))
   ||
@@ -28,19 +27,20 @@ export default (state = initState, action) => {
       }
     case actionTypes.SUCCESS_LOGIN:
       console.log(state)
+      console.log(action.payload)
       return {
-        ...state,
-        ...action.payload.userInfo,
+        ...action.payload.userMsg,
         isLoading: false,
         isLogin: true
       }
     case actionTypes.FAILED_LOGIN:
-      return { 
+      return {
         displayName: '',
         avatar: '',
         isLogin: false,
         isLoading: false,
-       }
+        role: ''
+      }
     default:
       return state
   }

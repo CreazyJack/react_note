@@ -8,11 +8,16 @@ const startLogin = () => {
     type: actionTypes.START_LOGIN
   }
 }
-const successLogin = (userInfo) => {
+
+const successLogin = (userMsg) => {
   return {
-    type: actionTypes.SUCCESS_LOGIN, payload: userInfo
+    type: actionTypes.SUCCESS_LOGIN,
+    payload: {
+      userMsg: userMsg
+    }
   }
 }
+
 const failedLogin = () => {
   window.localStorage.removeItem('authToken')
   window.sessionStorage.removeItem('authToken')
@@ -25,7 +30,9 @@ const failedLogin = () => {
 
 export const logOut = () => {
   return dispatch => {
-    dispatch(failedLogin())
+    setTimeout(() => {
+      dispatch(failedLogin())
+    }, 500);
   }
 }
 
@@ -36,20 +43,18 @@ export const login = (userInfo) => {
       .then(resp => {
         console.log(resp)
         console.log(userInfo)
-        const userMsg = {...resp.data.data}
+        const userMsg = { ...resp.data.data }
         console.log(userMsg)
         if (resp.data.code === 200) {
           if (userInfo.remember === true) {
             window.localStorage.setItem('authToken', userMsg.authToken)
             window.localStorage.setItem('userMsg', JSON.stringify(userMsg))
-          } else if (userInfo.remember === false) {
+          }
+          else if (userInfo.remember === false) {
             window.sessionStorage.setItem('authToken', userMsg.authToken)
             window.sessionStorage.setItem('userMsg', JSON.stringify(userMsg))
           }
-          dispatch(successLogin({
-            ...resp.data.data,
-            remember: userInfo.remember
-          }))
+          dispatch(successLogin(userMsg))
         } else {
           dispatch(failedLogin())
         }

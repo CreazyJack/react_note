@@ -20,7 +20,7 @@ const mapState = state => {
 }
 
 // 使用 antd 中的 layout 栅格功能
-@connect(mapState, { getNotificationList,logOut })
+@connect(mapState, { getNotificationList, logOut })
 @withRouter
 class Frame extends Component {
   componentDidMount() {
@@ -28,7 +28,15 @@ class Frame extends Component {
   }
   // 为 onClick 功能创建函数，通过引入 withRouter 来使用 <Route></Route> 组件中的属性
   onMenuClick = ({ key }) => { this.props.history.push(key) }
-  onDropDownMenuClick = ({ key }) => { this.props.history.push(key) }
+  onDropDownMenuClick = ({ key }) => { 
+    if(key === '/logIn') {
+      this.props.logOut()
+    } else {
+      this.props.history.push(key)
+    }
+
+    this.props.history.push(key) 
+  }
   dropDownMenu = () => (
     <Menu onClick={this.onDropDownMenuClick}>
       <Menu.Item key='/admin/notifications'>
