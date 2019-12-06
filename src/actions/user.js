@@ -32,7 +32,7 @@ export const logOut = () => {
   return dispatch => {
     setTimeout(() => {
       dispatch(failedLogin())
-    }, 500);
+    }, 100);
   }
 }
 

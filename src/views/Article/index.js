@@ -130,6 +130,7 @@ export default class ArticleList extends Component {
         }, this.hideDeleteMod())
       })
   }
+ 
   getData = () => {
     console.log('调用了getData')
     this.setState({
@@ -141,6 +142,8 @@ export default class ArticleList extends Component {
           console.log(resp)
           const columnKeys = Object.keys(resp.data.list[0])
           const columns = this.createClumns(columnKeys)
+          // 使用这个方法来防止切换页面速度过快而出现的报错👇，如果请求完成之后组件已经销毁，就不需要 setState
+          if(!this.updater.isMounted(this)) return
           this.setState({
             total: resp.data.total,
             dataSource: resp.data.list,
@@ -152,6 +155,8 @@ export default class ArticleList extends Component {
         // 处理错误，虽然有全局错误处理
       })
       .finally(() => {
+        // 使用这个方法来防止切换页面速度过快而出现的报错👇，在每个请求数据并修改数据的方法前添加该方法
+        if(!this.updater.isMounted(this)) return
         this.setState({
           isLoading: false
         })
@@ -179,8 +184,12 @@ export default class ArticleList extends Component {
     // 在实际的项目中，是前端发送一个Ajax请求到后端，然后后端返回一个文件下载地址
     console.log('ok')
   }
-
+  componentWillMount(){
+    console.log(this.updater.isMounted(this))
+    
+  }
   componentDidMount() {
+    console.log(this.updater.isMounted(this))
     this.getData()
   }
 
