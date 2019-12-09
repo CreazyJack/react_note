@@ -2,6 +2,7 @@ import { Loading } from '../components'
 import Loadable from 'react-loadable'
 
 // 路由的懒加载
+// loading 需要赋予一个组件
 const Dashboard = Loadable(
   {
     loader: () => import('./Dashboard'),
@@ -20,9 +21,9 @@ const NotFound = Loadable(
     loading: Loading
   }
 )
-const settings = Loadable(
+const Setting = Loadable(
   {
-    loader: () => import('./settings'),
+    loader: () => import('./Setting'),
     loading: Loading
   }
 )
@@ -55,7 +56,7 @@ export {
   Dashboard,
   LogIn,
   NotFound,
-  settings,
+  Setting,
   Article,
   Edit,
   Notifications,

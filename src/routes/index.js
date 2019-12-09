@@ -1,4 +1,4 @@
-import { Dashboard, LogIn, NotFound, settings, Article, Edit, Notifications, NoAuth } from '../views'
+import { Dashboard, LogIn, NotFound, Setting, Article, Edit, Notifications, NoAuth } from '../views'
 
 export const mainRoutes = [
   {
@@ -26,7 +26,7 @@ export const adminRoutes = [
   {
     pathname: '/admin/Article/Edit',
     component: Edit,
-    role: ['001']
+    role: ['001','002','003']
   },
   {
     pathname: '/admin/Notifications',
@@ -45,15 +45,14 @@ export const adminRoutes = [
     isNav: true,
     exact: true,
     icon: 'unordered-list',
-    role: ['001','002']
+    role: ['001','002','003']
   },
- 
   {
-    pathname: '/admin/settings',
-    component: settings,
+    pathname: '/admin/setting',
+    component: Setting,
     title: '设置',
     isNav: true,
     icon: 'setting',
-    role: ['001']
+    role: ['001','002','003']
   },
 ]

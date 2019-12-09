@@ -6,6 +6,8 @@ import Logo from './Logo.png'
 import "./Frame.less"
 import { getNotificationList } from '../../actions/Notifications'
 import { logOut } from '../../actions/user'
+
+
 const { Header, Content, Sider } = Layout
 const mapState = state => {
   console.log('主框架的state', state)
