@@ -41,7 +41,7 @@ export const getArticles = (offset = 0, limited = 10) => {
 
 // 通过id删除文章
 export const deleteArt = id => {
-  // 此处有两种方式，一种是 return service.post('/api/v1/articleDelete',{id})
+  // 此处有两种方式，一种是 return service.post('/api/v1/articleDelete',{id})1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
   return service.post(`/api/v1/articleDelete/${id}`)
 }
 

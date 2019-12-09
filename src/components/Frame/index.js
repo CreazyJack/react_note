@@ -63,7 +63,7 @@ class Frame extends Component {
             <img src={Logo} alt="" />
           </div>
           <div>
-            <Dropdown overlay={this.dropDownMenu()} trigger={['click']}>
+            <Dropdown className='dropdown' overlay={this.dropDownMenu()} trigger={['click']}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Avatar src={this.props.avatar} />
                 <span>欢迎你，{this.props.displayName}！</span>
