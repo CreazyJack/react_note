@@ -148,14 +148,14 @@ class Setting extends Component {
 
     const formItemLayout = {
       labelCol: {
-        xs: { span: 4 },
-        sm: { span: 8 },
-        md: { span: 4 },
+        xs: { span: 24 },
+        sm: { span: 24},
+        md: { span: 8 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 },
-        md: { span: 14 },
+        sm: { span: 24 },
+        md: { span: 12 },
       },
     };
     const tailFormItemLayout = {

@@ -47,6 +47,25 @@ class Frame extends Component {
       <Menu.Item key='/admin/settings'>
         个人设置
       </Menu.Item>
+      <Menu.Item key='/admin' className='menuToggle'>
+        首页
+      </Menu.Item>
+      <Menu.Item key='/admin/Article' className='menuToggle'>
+        文章管理
+      </Menu.Item>
+      <Menu.Item key='/logIn'>
+        退出登录
+      </Menu.Item>
+    </Menu>
+  )
+  dropDownMenuToggle = () => (
+    <Menu onClick={this.onDropDownMenuClick}>
+      <Menu.Item key='/admin'>
+        首页
+      </Menu.Item>
+      <Menu.Item key='/admin/Article'>
+        个人设置
+      </Menu.Item>
       <Menu.Item key='/logIn'>
         退出登录
       </Menu.Item>
@@ -77,7 +96,7 @@ class Frame extends Component {
           </div>
         </Header>
         <Layout>
-          <Sider width={200} style={{ background: '#fff' }}>
+          <Sider className='sideBar' width={200} style={{ background: '#fff' }}>
             <Menu
               mode="inline"
               // 被选中标签高亮显示
