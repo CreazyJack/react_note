@@ -30,6 +30,7 @@ export const MarkNotificationsAsRead = id => {
     }, 500)
   }
 }
+
 export const MarkAllAsRead = () => {
   return dispatch => {
     dispatch(startPost())
@@ -41,6 +42,7 @@ export const MarkAllAsRead = () => {
     }, 500)
   }
 }
+
 export const getNotificationList = () => {
   return dispatch => {
     dispatch(startPost())

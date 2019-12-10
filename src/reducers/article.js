@@ -1,15 +1,10 @@
 import actionTypes from "../actions/actionTypes"
+
 const initState = {
-  dataSource: [],
-  columns: [],
-  total: 0,
+  dataSource: [1],
+  total: 1,
   isLoading: false,
-  offset: 0,
-  limited: 10,
-  deleteArtTitle: '',
-  isShowArtMod: false,
-  deleteArtConfirmLoading: false,
-  deleteArtID: '',
+  columns: []
 }
 
 
@@ -20,16 +15,17 @@ export default (state = initState, action) => {
         ...state,
         isLoading: true,
       }
+
     case actionTypes.RECEIVED_ARTICLES:
-      return {
-        ...state,
-        dataSource: action.payload.list,
-      }
-      case actionTypes.FINISH_ARTICLE_POST:
+      const { dataSource, total, columns, columnKeys } = action.payload
+      return { ...state, dataSource, total, columns, columnKeys }
+
+    case actionTypes.FINISH_ARTICLE_POST:
       return {
         ...state,
         isLoading: false,
       }
+
     default:
       return state
   }

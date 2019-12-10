@@ -22,16 +22,19 @@ export default (state = initState, action) => {
         ...state,
         isLoading: true
       }
+
     case actionTypes.RECEIVED_NOTIFICATIONS:
       return {
         ...state,
         list: action.payload.list
       }
+
     case actionTypes.FINISH_NOTIFICATION_POST:
       return {
         ...state,
         isLoading: false
       }
+
     case actionTypes.MARK_NOTIFICATIONS_AS_READ_BY_ID:
       const newList = state.list.map(item => {
         if (item.id === action.payload.id) {
@@ -43,6 +46,7 @@ export default (state = initState, action) => {
         ...state,
         list: newList
       }
+      
     case actionTypes.MARK_ALL_AS_READ_BY_ID:
       return {
         ...state,

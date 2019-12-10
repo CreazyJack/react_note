@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import Logo from './Logo.png'
 import "./Frame.less"
 import { getNotificationList } from '../../actions/Notifications'
+import { ArticleRequest } from '../../actions/article'
 import { logOut } from '../../actions/user'
 
 
@@ -12,20 +13,22 @@ const { Header, Content, Sider } = Layout
 const mapState = state => {
   // 通过另一种方式判断👇
   // const allISRead = state.notifications.list.every(item => item.hasRead === true)
+  const {isLogin,avatar,displayName} = state.user
   return {
     notificationsCount: state.notifications.list.filter(item => item.hasRead === false).length,
-    isLogin: state.user.isLogin,
-    avatar: state.user.avatar,
-    displayName: state.user.displayName
+    isLogin,
+    avatar,
+    displayName
   }
 }
 
 // 使用 antd 中的 layout 栅格功能
-@connect(mapState, { getNotificationList, logOut })
+@connect(mapState, { getNotificationList, logOut, ArticleRequest })
 @withRouter
 class Frame extends Component {
   componentDidMount() {
     this.props.getNotificationList()
+    this.props.ArticleRequest()
   }
   // 为 onClick 功能创建函数，通过引入 withRouter 来使用 <Route></Route> 组件中的属性
   onMenuClick = ({ key }) => { this.props.history.push(key) }
@@ -35,7 +38,6 @@ class Frame extends Component {
     } else {
       this.props.history.push(key)
     }
-
     this.props.history.push(key)
   }
   dropDownMenu = () => (

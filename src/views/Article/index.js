@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import { Card, Button, Table, Tag, Modal, Typography, Tooltip, message } from 'antd'
+import { Card, Button, Table, Tag, Modal, Typography, Tooltip } from 'antd'
 import { ArticleRequest, } from '../../actions/article'
 import moment from 'moment'
 import { connect } from 'react-redux'
 
 const mapState = state => {
-  return (
-    state
-  )
+  const { dataSource, total, isLoading, columns, columnKeys } = state.article
+  return { dataSource, total, isLoading, columns, columnKeys }
 }
 const ButtonGroup = Button.Group
 // 在这里，中文类名
@@ -23,10 +22,6 @@ class ArticleList extends Component {
   constructor() {
     super()
     this.state = {
-      dataSource: [],
-      columns: [],
-      total: 0,
-      isLoading: false,
       offset: 0,
       limited: 10,
       deleteArtTitle: '',
@@ -35,11 +30,10 @@ class ArticleList extends Component {
       deleteArtID: '',
     }
   }
-  componentDidMount() {
-    // console.log(this.updater.isMounted(this))
-    // this.getData()
-    ArticleRequest(this.state.offset, this.state.limited)
-  }
+  // componentDidMount() {
+  //   // this.getData()
+  //   this.props.ArticleRequest(this.state.offset, this.state.limited)
+  // }
   // 将几个相关的方法独立出来写，最后在一个方法中汇总
   createClumns = (columnKeys) => {
     const columns = columnKeys.map(item => {
@@ -82,10 +76,10 @@ class ArticleList extends Component {
     })
     return columns
   }
+
   toEdit = (id) => {
     this.props.history.push(`/admin/Article/Edit/${id}`)
   }
-
 
   onPageChange = (page, pageSize) => {
     this.setState({
@@ -108,6 +102,11 @@ class ArticleList extends Component {
   }
   deleteArticleMod = (record) => {
     console.log(record)
+    this.setState({
+      isShowArtMod: true,
+      deleteArtTitle: record.title,
+      deleteArtID: record.id
+    })
     // 使用函数的方式调用，定制化没那么强
     // Modal.confirm({
     //   title: '此操作不可逆，请谨慎！',
@@ -121,12 +120,8 @@ class ArticleList extends Component {
     //       })
     //   }
     // })
-    this.setState({
-      isShowArtMod: true,
-      deleteArtTitle: record.title,
-      deleteArtID: record.id
-    })
   }
+
   hideDeleteMod = () => {
     this.setState({
       isShowArtMod: false,
@@ -134,6 +129,49 @@ class ArticleList extends Component {
       deleteArtConfirmLoading: false,
     })
   }
+
+  render() {
+    return (
+      <div>
+        <Card
+          title="文章列表"
+          bordered={false}
+          style={{}}
+          extra={<Button onClick={this.toExcel}>导出excel</Button>}
+        >
+          <Table
+            // 给每一项一个key
+            rowKey={record => record.id}
+            dataSource={this.props.dataSource}
+            columns={this.createClumns(this.props.columnKeys)}
+            loading={this.props.isLoading}
+            pagination={{
+              current: this.state.offset / this.state.limited + 1,
+              total: this.state.total,
+              hideOnSinglePage: true,
+              onChange: this.onPageChange,
+              showQuickJumper: true,
+              showSizeChanger: true,
+              onShowSizeChange: this.onShowSizeChange,
+            }}
+          />
+          <Modal
+            title='此操作不可逆，请谨慎！'
+            visible={this.state.isShowArtMod}
+            onCancel={this.hideDeleteMod}
+            maskClosable={false}
+            onOk={this.deleteArticle}
+            confirmLoading={this.state.deleteArtConfirmLoading}
+          >
+            <Typography>确定要删除<span style={{ color: 'red' }}>{this.state.deleteArtTitle}吗？</span></Typography>
+          </Modal>
+        </Card>
+      </div>
+    )
+  }
+}
+export default ArticleList
+
   // deleteArticle = () => {
   //   this.setState({
   //     deleteArtConfirmLoading: true,
@@ -191,47 +229,3 @@ class ArticleList extends Component {
   //       })
   //     })
   // }
-
-
-  render() {
-
-    return (
-      <div>
-        <Card
-          title="文章列表"
-          bordered={false}
-          style={{}}
-          extra={<Button onClick={this.toExcel}>导出excel</Button>}
-        >
-          <Table
-            // 给每一项一个key
-            rowKey={record => record.id}
-            dataSource={this.props.dataSource}
-            columns={this.state.columns}
-            loading={this.state.isLoading}
-            pagination={{
-              current: this.state.offset / this.state.limited + 1,
-              total: this.state.total,
-              hideOnSinglePage: true,
-              onChange: this.onPageChange,
-              showQuickJumper: true,
-              showSizeChanger: true,
-              onShowSizeChange: this.onShowSizeChange,
-            }}
-          />
-          <Modal
-            title='此操作不可逆，请谨慎！'
-            visible={this.state.isShowArtMod}
-            onCancel={this.hideDeleteMod}
-            maskClosable={false}
-            onOk={this.deleteArticle}
-            confirmLoading={this.state.deleteArtConfirmLoading}
-          >
-            <Typography>确定要删除<span style={{ color: 'red' }}>{this.state.deleteArtTitle}吗？</span></Typography>
-          </Modal>
-        </Card>
-      </div>
-    )
-  }
-}
-export default ArticleList

@@ -23,12 +23,14 @@ export default (state = initState, action) => {
         ...state,
         isLoading: true
       }
+
     case actionTypes.SUCCESS_LOGIN:
       return {
         ...action.payload.userMsg,
         isLoading: false,
         isLogin: true
       }
+
     case actionTypes.FAILED_LOGIN:
       return {
         displayName: '',
@@ -37,6 +39,7 @@ export default (state = initState, action) => {
         isLoading: false,
         role: ''
       }
+      
     default:
       return state
   }
