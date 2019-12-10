@@ -3,7 +3,6 @@ import { Card, Button, List, Badge, Avatar, Spin } from 'antd'
 import { connect } from 'react-redux'
 import { MarkNotificationsAsRead, MarkAllAsRead } from '../../actions/Notifications'
 const mapState = state => {
-  console.log('通知中心的state', state)
   const { list, isLoading } = state.notifications
   return { list, isLoading }
 }
@@ -11,7 +10,6 @@ const mapState = state => {
 @connect(mapState, { MarkNotificationsAsRead, MarkAllAsRead })
 class Notifications extends Component {
   render() {
-    console.log(this.props.isLoading)
     return (
       <Spin spinning={this.props.isLoading}>
         <Card

@@ -47,7 +47,7 @@ export const deleteArt = id => {
 
 // 获取文章阅读量
 export const getArticleReadAmount = () => {
-  return service.post('/api/v1/notifications')
+  return service.post('/api/v1/articleList')
 }
 
 // 获取通知列表

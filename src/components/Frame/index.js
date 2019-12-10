@@ -10,7 +10,6 @@ import { logOut } from '../../actions/user'
 
 const { Header, Content, Sider } = Layout
 const mapState = state => {
-  console.log('主框架的state', state)
   // 通过另一种方式判断👇
   // const allISRead = state.notifications.list.every(item => item.hasRead === true)
   return {
@@ -30,14 +29,14 @@ class Frame extends Component {
   }
   // 为 onClick 功能创建函数，通过引入 withRouter 来使用 <Route></Route> 组件中的属性
   onMenuClick = ({ key }) => { this.props.history.push(key) }
-  onDropDownMenuClick = ({ key }) => { 
-    if(key === '/logIn') {
+  onDropDownMenuClick = ({ key }) => {
+    if (key === '/logIn') {
       this.props.logOut()
     } else {
       this.props.history.push(key)
     }
 
-    this.props.history.push(key) 
+    this.props.history.push(key)
   }
   dropDownMenu = () => (
     <Menu onClick={this.onDropDownMenuClick}>
@@ -58,24 +57,10 @@ class Frame extends Component {
       </Menu.Item>
     </Menu>
   )
-  dropDownMenuToggle = () => (
-    <Menu onClick={this.onDropDownMenuClick}>
-      <Menu.Item key='/admin'>
-        首页
-      </Menu.Item>
-      <Menu.Item key='/admin/Article'>
-        个人设置
-      </Menu.Item>
-      <Menu.Item key='/logIn'>
-        退出登录
-      </Menu.Item>
-    </Menu>
-  )
 
   render() {
     const selectKeysArr = this.props.location.pathname.split('/')
     selectKeysArr.length = 3
-    console.log('ok', this.props)
     return (
       // 将无用的菜单组件删除，只保留一级菜单
       <Layout style={{ height: '100%' }}>

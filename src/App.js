@@ -20,7 +20,6 @@ const mapState = state => {
 @connect(mapState)
 class App extends Component {
   render() {
-    console.log(this.props.isLogin)
     return (
       this.props.isLogin
         ?
@@ -33,7 +32,6 @@ class App extends Component {
                 key={route.pathname}
                 path={route.pathname}
                 render={(routeProps) => {
-                  console.log(route)
                   const hasPermission = route.role.includes(this.props.role)
                   return hasPermission ? <route.component {...routeProps} /> : <Redirect to='/admin/NoAuth' />
                 }}

@@ -19,7 +19,6 @@ ReactDOM.render(
           {/* TODO: 权限，需要登陆才能访问 */}
           <Route path='/admin' render={
             (routeProps) => {
-              console.log(routeProps)
               return <App {...routeProps}></App>
             }
           }></Route>

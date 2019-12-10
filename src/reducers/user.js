@@ -10,7 +10,6 @@ const userMsg = (
   ||
   JSON.parse(window.sessionStorage.getItem('userMsg'))
 )
-console.log(userMsg)
 const initState = {
   ...userMsg,
   isLoading: false,
@@ -18,7 +17,6 @@ const initState = {
 }
 
 export default (state = initState, action) => {
-  console.log('这是user的action:', action)
   switch (action.type) {
     case actionTypes.START_LOGIN:
       return {
@@ -26,8 +24,6 @@ export default (state = initState, action) => {
         isLoading: true
       }
     case actionTypes.SUCCESS_LOGIN:
-      console.log(state)
-      console.log(action.payload)
       return {
         ...action.payload.userMsg,
         isLoading: false,
