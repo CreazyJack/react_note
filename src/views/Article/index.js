@@ -111,7 +111,7 @@ class ArticleList extends Component {
     console.log(this.updater.isMounted(this))
     this.getData()
   }
-
+  
   render() {
     return (
       <div>
