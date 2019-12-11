@@ -4,7 +4,13 @@ const initState = {
   dataSource: [1],
   total: 1,
   isLoading: false,
-  columns: []
+  columns: [],
+  offset: 0,
+  limited: 10,
+  deleteArtTitle: '',
+  isShowArtMod: false,
+  deleteArtConfirmLoading: false,
+  deleteArtID: '',
 }
 
 
@@ -21,6 +27,21 @@ export default (state = initState, action) => {
       return { ...state, dataSource, total, columns, columnKeys }
 
     case actionTypes.FINISH_ARTICLE_POST:
+      return {
+        ...state,
+        isLoading: false,
+      }
+    case actionTypes.START_DELETE_ARTICLE:
+      return {
+        ...state,
+        deleteArtConfirmLoading: true,
+      }
+    case actionTypes.DELETE_ARTICLE:
+      return {
+        ...state,
+        isLoading: false,
+      }
+    case actionTypes.FINISH_DELETE_ARTICLE:
       return {
         ...state,
         isLoading: false,

@@ -1,5 +1,6 @@
 import actionTypes from './actionTypes'
 import { getArticles } from '../components/requests'
+import { deleteArt } from '../components/requests'
 
 const startGetArticle = () => {
   return {
@@ -13,13 +14,12 @@ const finishPost = () => {
   }
 }
 
-
 export const ArticleRequest = (offset, limited) => {
   return dispatch => {
     dispatch(startGetArticle())
     getArticles(offset, limited)
       .then(resp => {
-        const columnKeys= Object.keys(resp.data.list[0])
+        const columnKeys = Object.keys(resp.data.list[0])
         dispatch({
           type: actionTypes.RECEIVED_ARTICLES,
           payload: {
@@ -33,4 +33,30 @@ export const ArticleRequest = (offset, limited) => {
   }
 }
 
+const startDeleteArt = () => {
+  return {
+    type: actionTypes.START_DELETE_ARTICLE
+  }
+}
+const finishDeleteArt = () => {
+  return {
+    type: actionTypes.FINISH_DELETE_ARTICLE
+  }
+}
 
+export const deleteArticle = id => {
+  return dispatch => {
+    dispatch(startDeleteArt())
+    deleteArt(id)
+      .then(resp => {
+        console.log(resp)
+        dispatch({
+          type: actionTypes.DELETE_ARTICLE,
+          payload: {
+            resp
+          }
+        })
+        finishDeleteArt()
+      })
+  }
+}
