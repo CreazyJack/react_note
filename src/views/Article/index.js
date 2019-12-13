@@ -29,6 +29,10 @@ export default class ArticleList extends Component {
       deleteArtID: '',
     }
   }
+  componentDidMount() {
+    console.log(this.updater.isMounted(this))
+    this.getData()
+  }
   // 将几个相关的方法独立出来写，最后在一个方法中汇总
   createClumns = (columnKeys) => {
     const columns = columnKeys.map(item => {
@@ -128,10 +132,7 @@ export default class ArticleList extends Component {
     console.log('ok')
   }
 
-  componentDidMount() {
-    console.log(this.updater.isMounted(this))
-    this.getData()
-  }
+
   deleteArticle = () => {
     this.setState({
       deleteArtConfirmLoading: true,
