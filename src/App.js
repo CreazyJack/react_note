@@ -20,7 +20,7 @@ const mapState = state => {
 @connect(mapState)
 class App extends Component {
   render() {
-    console.log(this.props.isLogin)
+    console.log(this.props)
     return (
       this.props.isLogin
         ?

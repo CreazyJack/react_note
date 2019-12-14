@@ -1,19 +1,29 @@
-.zgm-header {
-  padding: 0 16px;
-  background: #ffffff;
-  border: 1px solid #dedede;
-  display: flex;
+.mainBox {
 
-  .dropdown {
-    cursor: pointer;
-  }
+  .zgm-header {
+    padding: 0 16px;
+    border: 1px solid #dedede;
+    display: flex;
 
-  .zgm-logo {
-    height: 48px;
-    flex: 1;
+    .dropdown {
+      cursor: pointer;
+    }
 
-    img {
-      height: 100%;
+    .changeTheme {
+      flex: 1;
+      padding: 0 0 0 20px;
+
+      button {
+        margin: 0 20px;
+      }
+    }
+
+    .zgm-logo {
+      height: 48px;
+      flex: 0.5;
+      img {
+        height: 100%;
+      }
     }
   }
 }
@@ -22,6 +32,7 @@
   .menuToggle {
     display: block;
   }
+
   .sideBar {
     display: none;
   }
