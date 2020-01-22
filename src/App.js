@@ -39,7 +39,7 @@ class App extends Component {
                 }}
               />
             })}
-            <Redirect to={adminRoutes[0].pathname} from='/admin' exact />>
+            <Redirect to={adminRoutes[0].pathname} from='/admin' exact />
             <Redirect to='/404' />
           </Switch>
         </Frame >

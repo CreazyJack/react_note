@@ -29,7 +29,6 @@ const mapState = state => {
 class Frame extends Component {
   componentDidMount() {
     this.props.getNotificationList()
-    // this.props.PeterRiver()
   }
   // 为 onClick 功能创建函数，通过引入 withRouter 来使用 <Route></Route> 组件中的属性
   onMenuClick = ({ key }) => { this.props.history.push(key) }
