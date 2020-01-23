@@ -12,7 +12,6 @@ export const PeterRiver = () => {
   colors.sidebar = 'rgba(52, 152, 219, 0.5)'
   colors.content = 'rgba(52, 152, 219, 0.5)'
   colors.fontColor = 'white'
-  console.log(colors)
   return {
     type: actionTypes.PETER_RIVER,
     payload: {
@@ -26,7 +25,6 @@ export const GreenSea = () => {
   colors.sidebar = 'rgba(22, 160, 133, 0.5)'
   colors.content = 'rgba(22, 160, 133, 0.5)'
   colors.fontColor = 'white'
-  console.log(colors)
   return {
     type: actionTypes.PETER_RIVER,
     payload: {
@@ -40,7 +38,6 @@ export const Carrot = () => {
   colors.sidebar = 'rgba(230, 126, 34, 0.5)'
   colors.content = 'rgba(230, 126, 34, 0.5)'
   colors.fontColor = 'white'
-  console.log(colors)
   return {
     type: actionTypes.PETER_RIVER,
     payload: {
@@ -54,7 +51,6 @@ export const Default = () => {
   colors.sidebar = 'white'
   colors.content = 'white'
   colors.fontColor = ''
-  console.log(colors)
   return {
     type: actionTypes.DEFAULT_COLOR,
     payload: {

@@ -44,14 +44,14 @@ export const deleteArt = id => {
   return service.post(`/api/v1/articleDelete/${id}`)
 }
 
-// 获取文章阅读量
-export const getArticleReadAmount = () => {
-  return service.post('/api/v1/notifications')
-}
 
 // 获取通知列表
 export const getNotifications = () => {
   return service.post('/api/v1/notifications')
+}
+// 获取访问数量
+export const getBrowseAmount = () => {
+  return service.post('/api/v1/browseAmount')
 }
 
 // 登录接口
