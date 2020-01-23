@@ -22,7 +22,7 @@ export const adminRoutes = [
     icon: 'dashboard',
     role: ['001','002','003']
   },
-  // 当出现包含关系的路径时，长路径放在段路径前面
+  // 当出现包含关系的路径时，长路径放在短路径前面,或者在短路径中添加 exact
   {
     pathname: '/admin/Article/Edit',
     component: Edit,

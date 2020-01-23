@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { userInfo } from 'os'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -59,6 +58,6 @@ export const getNotifications = () => {
 // export const loginRequest = (username = "0",password = "0", remember = true) => {
 //   return service1.post('/api/v1/login',{username, password, remember})
 // }
-export const loginRequest = ({ username, password, remember } = userInfo) => {
+export const loginRequest = ({ username, password, remember }) => {
   return service1.post('/api/v1/login', { username, password, remember })
 }

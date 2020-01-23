@@ -26,7 +26,6 @@ class App extends Component {
         ?
         // 在这里把属性传递下去
         <Frame menus={menus}>
-          <p>这里是公共的部分</p>
           <Switch>
             {adminRoutes.map(route => {
               return <Route
