@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react'
-import { Card, Button, List, Badge, Menu, Avatar, Row, Col } from 'antd'
+import { Card, Row, Col } from 'antd'
 import echarts from 'echarts'
 import { connect } from 'react-redux'
 import './dashboard.less'
@@ -19,7 +19,10 @@ class Dashboard extends Component {
     this.articleAmount = createRef()
   }
   render() {
-    console.log(getBrowseAmount)
+    let onEvents = {
+      'click': this.onChartClick.bind(this),
+      'legendselectchanged': this.onChartLegendselectchanged.bind(this)
+    }
     return (
       <>
         <Card
@@ -83,7 +86,7 @@ class Dashboard extends Component {
               option={this.getOption()}
               notMerge={true}
               lazyUpdate={true}
-              onEvents={this.onEvents}
+              onEvents={onEvents}
               style={{ width: '100%', height: '100%' }}
             />
           </div>
@@ -239,15 +242,16 @@ class Dashboard extends Component {
       }]
     };
   }
-  onEvents = () => {
-    console.log('onEvents')
+  onChartClick(param, echarts) {
+    console.log(param)
   }
-
+  onChartLegendselectchanged(param, echarts) {
+    console.log(param)
+  }
   initArticleChart = () => {
     this.articleChart = echarts.init(this.articleAmount.current)
     getBrowseAmount()
       .then(resp => {
-        console.log(resp)
         const option = {
           xAxis: {
             boundaryGap: false,
