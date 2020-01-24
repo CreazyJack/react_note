@@ -19,10 +19,10 @@ class Dashboard extends Component {
     this.articleAmount = createRef()
   }
   render() {
-    let onEvents = {
-      'click': this.onChartClick.bind(this),
-      'legendselectchanged': this.onChartLegendselectchanged.bind(this)
-    }
+    // let onEvents = {
+    //   'click': this.onChartClick.bind(this),
+    //   'legendselectchanged': this.onChartLegendselectchanged.bind(this)
+    // }
     return (
       <>
         <Card
