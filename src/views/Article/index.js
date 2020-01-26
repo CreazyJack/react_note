@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Button, Table, Tag, Modal, Typography, message, Tooltip, } from 'antd'
 import { getArticles, deleteArt } from '../../components/requests'
 import moment from 'moment'
-
+import XLSX from 'xlsx'
 
 const ButtonGroup = Button.Group
 // 在这里，中文类名
@@ -67,7 +67,7 @@ export default class ArticleList extends Component {
       render: (text, record) => {
         return (
           <ButtonGroup size='small'>
-            <Button size='small' type='primary' onClick={this.toEdit.bind(this, record.id)}>编辑</Button>
+            <Button size='small' type='primary' onClick={this.toEdit.bind(this, record.id, record)}>编辑</Button>
             <Button size='small' type='danger' onClick={this.deleteArticleMod.bind(this, record)}>删除</Button>
           </ButtonGroup>
         )
@@ -76,13 +76,11 @@ export default class ArticleList extends Component {
     })
     return columns
   }
-  toEdit = (id) => {
-    console.log(this.props)
-    this.props.history.push(`/admin/Article/Edit/${id}`)
+  toEdit = (id, record) => {
+    this.props.history.push(`/admin/Article/Edit/${id}`, { record })
   }
 
   deleteArticleMod = (record) => {
-    console.log(record)
     this.setState({
       isShowArtMod: true,
       deleteArtTitle: record.title,
@@ -130,6 +128,7 @@ export default class ArticleList extends Component {
   toExcel = () => {
     // 在实际的项目中，是前端发送一个Ajax请求到后端，然后后端返回一个文件下载地址
     console.log('ok')
+    this.exportFile()
   }
 
 
@@ -190,14 +189,39 @@ export default class ArticleList extends Component {
         })
       })
   }
+
+  exportFile() {
+    const list = [Object.keys(this.state.dataSource[0])]
+    for (let i = 0; i < this.state.dataSource.length; i++) {
+      list.push(Object.values(this.state.dataSource[i]))
+    }
+    console.log(list)
+    /* convert state to workbook */
+    const ws = XLSX.utils.aoa_to_sheet(list)
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, "SheetJS")
+    /* generate XLSX file and send to client */
+    XLSX.writeFile(wb, "sheetjs.xlsx")
+  }
   render() {
+    console.log(this.props.history)
     return (
       <div>
         <Card
           title="文章列表"
           bordered={false}
           style={{}}
-          extra={<Button onClick={this.toExcel}>导出excel</Button>}
+          extra={[<Button key='1' onClick={() => {
+            var timestamp = new Date().getTime()
+            let record = {
+              amount: null,
+              author: null,
+              createAt: timestamp,
+              title: null
+            }
+            this.toEdit(Math.floor(Math.random() * 100000000), record)
+          }}>新建文章</Button>, <Button key='2' onClick={this.toExcel}>导出excel</Button>]
+          }
         >
           <Table
             // 给每一项一个key
@@ -213,6 +237,7 @@ export default class ArticleList extends Component {
               showQuickJumper: true,
               showSizeChanger: true,
               onShowSizeChange: this.onShowSizeChange,
+              pageSize: this.state.limited
             }}
           />
           <Modal
@@ -225,8 +250,8 @@ export default class ArticleList extends Component {
           >
             <Typography>确定要删除<span style={{ color: 'red' }}>{this.state.deleteArtTitle}吗？</span></Typography>
           </Modal>
-        </Card>
-      </div>
+        </Card >
+      </div >
     )
   }
 }

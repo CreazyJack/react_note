@@ -42,7 +42,7 @@ class Frame extends Component {
     this.props.history.push(key)
   }
   dropDownMenu = () => (
-    <Menu onClick={this.onDropDownMenuClick}>
+    <Menu onClick={this.onDropDownMenuClick} style={{ marginTop: '-5px' }}>
       <Menu.Item key='/admin/notifications'>
         <Badge dot={this.props.notificationsCount === 0 ? false : true}>通知中心</Badge>
       </Menu.Item>
@@ -61,7 +61,7 @@ class Frame extends Component {
     </Menu>
   )
   dropDownMenuToggle = () => (
-    <Menu onClick={this.onDropDownMenuClick}>
+    <Menu onClick={this.onDropDownMenuClick} style={{ marginTop: '-5px' }}>
       <Menu.Item key='/admin'>
         首页
       </Menu.Item>
@@ -123,8 +123,7 @@ class Frame extends Component {
                   alignItems: 'center'
                 }}>
                 <Avatar src={this.props.avatar} />
-                <span
-                  style={{ color: this.props.theme.fontColor }}>欢迎你，{this.props.displayName}！</span>
+                <span style={{ color: this.props.theme.fontColor }}>欢迎你，{this.props.displayName}！</span>
                 <Badge count={this.props.notificationsCount} offset={[-10, -10]}>
                   <Icon type='down'></Icon>
                 </Badge>

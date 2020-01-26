@@ -11003,6 +11003,11 @@ walker@^1.0.7, walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
+wangeditor@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npm.taobao.org/wangeditor/download/wangeditor-3.1.1.tgz#fbd3c1d4976923c9edebb85b29d30b35512ad039"
+  integrity sha1-+9PB1JdpI8nt67hbKdMLNVEq0Dk=
+
 warning@4.x, warning@^4.0.1, warning@^4.0.2, warning@^4.0.3, warning@~4.0.3:
   version "4.0.3"
   resolved "https://registry.npm.taobao.org/warning/download/warning-4.0.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwarning%2Fdownload%2Fwarning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
@@ -11419,10 +11424,10 @@ ws@^6.1.2:
   dependencies:
     async-limiter "~1.0.0"
 
-xlsx@^0.15.1:
-  version "0.15.1"
-  resolved "https://registry.npm.taobao.org/xlsx/download/xlsx-0.15.1.tgz#a767c4d412cbd0c95b30dbcd48bed7de428eb107"
-  integrity sha1-p2fE1BLL0MlbMNvNSL7X3kKOsQc=
+xlsx@^0.15.4:
+  version "0.15.4"
+  resolved "https://registry.npm.taobao.org/xlsx/download/xlsx-0.15.4.tgz#42ef1807829c4f9e98e8fce2641d53df5b5bde3e"
+  integrity sha1-Qu8YB4KcT56Y6PziZB1T31tb3j4=
   dependencies:
     adler-32 "~1.2.0"
     cfb "^1.1.3"

@@ -27,8 +27,8 @@ ReactDOM.render(
             mainRoutes.map(route => <Route key={route.pathname} path={route.pathname} component={route.component}></Route>)
           }
           {/* 使用 Redirect 组件来确定首页，并且设置在地址错误时返回的页面 */}
-          <Redirect to='/admin' from='/' exact ></Redirect>
-          <Redirect to='/404'></Redirect>
+          <Redirect to='/admin' from='/' exact />
+          <Redirect to='/404' />
         </Switch>
       </Router>
     </ConfigProvider>

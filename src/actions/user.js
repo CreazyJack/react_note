@@ -40,8 +40,6 @@ export const login = (userInfo) => {
     dispatch(startLogin())
     loginRequest(userInfo)
       .then(resp => {
-        console.log(resp)
-        console.log(userInfo)
         const userMsg = { ...resp.data.data }
         console.log(userMsg)
         if (resp.data.code === 200) {
@@ -58,5 +56,14 @@ export const login = (userInfo) => {
           dispatch(failedLogin())
         }
       })
+  }
+}
+
+export const changeAvatar = imgUrl => {
+  return {
+    type: actionTypes.CHANGE_AVATAR,
+    payload: {
+      avatar: imgUrl
+    }
   }
 }

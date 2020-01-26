@@ -6,71 +6,40 @@ import {
   message,
   Form,
   Input,
-  Tooltip,
-  Cascader,
   Select,
   Row,
   Col,
   Checkbox,
   Button,
-  AutoComplete,
 } from 'antd'
 import './setting.less'
+import { connect } from 'react-redux'
+import { changeAvatar } from '../../actions/user'
 
-const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
 
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
+const { Option } = Select
+
 function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result))
+  reader.readAsDataURL(img)
 }
 
 function beforeUpload(file) {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
   if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
+    message.error('You can only upload JPG/PNG file!')
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
+  const isLt2M = file.size / 1024 / 1024 < 2
   if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
+    message.error('Image must smaller than 2MB!')
   }
-  return isJpgOrPng && isLt2M;
+  return isJpgOrPng && isLt2M
 }
+
+const mapState = ({ user }) => ({ user })
+
+@connect(mapState, { changeAvatar })
 @Form.create()
 class Setting extends Component {
 
@@ -78,86 +47,105 @@ class Setting extends Component {
     loading: false,
     confirmDirty: false,
     autoCompleteResult: [],
-  };
+    isLoading: false
+  }
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
+    var agree = this.props.form.getFieldValue('agreement')
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log('Received values of form: ', values)
+        this.btn()
       }
-    });
-  };
+    })
+  }
+  // 图片上传
   handleChange = info => {
     if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
+      this.setState({ loading: true })
+      return
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl =>
+      getBase64(info.file.originFileObj, imageUrl => {
         this.setState({
-          imageUrl,
           loading: false,
-        }),
-      );
+        })
+        this.props.changeAvatar(imageUrl)
+        this.props.form.setFieldsValue({
+          avatar: imageUrl
+        })
+      }
+
+        // this.props.changeAvatar(imageUrl)
+      )
     }
-  };
+  }
   handleConfirmBlur = e => {
-    const { value } = e.target;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-  };
+    const { value } = e.target
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value })
+  }
 
   compareToFirstPassword = (rule, value, callback) => {
-    const { form } = this.props;
+    const { form } = this.props
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('Two passwords that you enter is inconsistent!')
     } else {
-      callback();
+      callback()
     }
-  };
+  }
 
   validateToNextPassword = (rule, value, callback) => {
-    const { form } = this.props;
+    const { form } = this.props
     if (value && this.state.confirmDirty) {
-      form.validateFields(['confirm'], { force: true });
+      form.validateFields(['confirm'], { force: true })
     }
-    callback();
-  };
+    callback()
+  }
 
   handleWebsiteChange = value => {
-    let autoCompleteResult;
+    let autoCompleteResult
     if (!value) {
-      autoCompleteResult = [];
+      autoCompleteResult = []
     } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`)
     }
-    this.setState({ autoCompleteResult });
-  };
-
+    this.setState({ autoCompleteResult })
+  }
+  // 保存按钮
+  btn = () => {
+    message.loading('正在保存', 0.8)
+    this.setState({
+      isLoading: true
+    }, () => setTimeout(() => {
+      message.success('保存成功', 1.5)
+      this.setState({
+        isLoading: false
+      })
+    }, 1000))
+  }
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator } = this.props.form
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'} />
         <div className="ant-upload-text">点击上传</div>
       </div>
-    );
-    const { imageUrl } = this.state;
-    const { autoCompleteResult } = this.state;
-
+    )
+    const imageUrl = this.props.user.avatar
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 24},
-        md: { span: 8 },
+        sm: { span: 24 },
+        md: { span: 6 },
       },
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 24 },
         md: { span: 12 },
       },
-    };
+    }
     const tailFormItemLayout = {
       wrapperCol: {
         xs: {
@@ -169,7 +157,7 @@ class Setting extends Component {
           offset: 0,
         },
       },
-    };
+    }
     const prefixSelector = getFieldDecorator('prefix', {
       initialValue: '86',
     })(
@@ -177,61 +165,53 @@ class Setting extends Component {
         <Option value="86">+86</Option>
         <Option value="87">+87</Option>
       </Select>,
-    );
+    )
 
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
     return (
       <Card title='个人设置'>
-        {/* <div className='avatarChange'>
-          <h3>修改头像</h3>
-          <Upload
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            beforeUpload={beforeUpload}
-            onChange={this.handleChange}
-          >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
-        </div> */}
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
           <Form.Item label="修改头像" className='avatarChange'>
-          <Upload
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            beforeUpload={beforeUpload}
-            onChange={this.handleChange}
-          >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
+            {getFieldDecorator('avatar', {
+              rules: [
+                {
+                  required: true,
+                  message: '请传入图片!',
+                },
+              ],
+            })(<Upload
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              beforeUpload={beforeUpload}
+              onChange={this.handleChange}
+
+            >
+              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%', height: '100%' }} /> : uploadButton}
+
+            </Upload>)}
           </Form.Item>
-          <Form.Item label="E-mail">
+          <Form.Item label="邮箱">
             {getFieldDecorator('email', {
               rules: [
                 {
                   type: 'email',
-                  message: 'The input is not valid E-mail!',
+                  message: '邮箱',
                 },
                 {
                   required: true,
-                  message: 'Please input your E-mail!',
+                  message: '请输入邮箱!',
                 },
               ],
             })(<Input />)}
           </Form.Item>
-          <Form.Item label="Password" hasFeedback>
+          <Form.Item label="密码" hasFeedback>
             {getFieldDecorator('password', {
               rules: [
                 {
                   required: true,
-                  message: 'Please input your password!',
+                  message: '输入密码!',
                 },
                 {
                   validator: this.validateToNextPassword,
@@ -239,12 +219,12 @@ class Setting extends Component {
               ],
             })(<Input.Password />)}
           </Form.Item>
-          <Form.Item label="Confirm Password" hasFeedback>
+          <Form.Item label="再次输入密码" hasFeedback>
             {getFieldDecorator('confirm', {
               rules: [
                 {
                   required: true,
-                  message: 'Please confirm your password!',
+                  message: '确认密码!',
                 },
                 {
                   validator: this.compareToFirstPassword,
@@ -252,70 +232,36 @@ class Setting extends Component {
               ],
             })(<Input.Password onBlur={this.handleConfirmBlur} />)}
           </Form.Item>
-          <Form.Item
-            label={
-              <span>
-                Nickname&nbsp;
-              <Tooltip title="What do you want others to call you?">
-                  <Icon type="question-circle-o" />
-                </Tooltip>
-              </span>
-            }
-          >
-            {getFieldDecorator('nickname', {
-              rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-            })(<Input />)}
-          </Form.Item>
-          <Form.Item label="Habitual Residence">
-            {getFieldDecorator('residence', {
-              initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-              rules: [
-                { type: 'array', required: true, message: 'Please select your habitual residence!' },
-              ],
-            })(<Cascader options={residences} />)}
-          </Form.Item>
-          <Form.Item label="Phone Number">
+          <Form.Item label="手机">
             {getFieldDecorator('phone', {
-              rules: [{ required: true, message: 'Please input your phone number!' }],
+              rules: [{ required: true, message: '请输入手机号码!' }],
             })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
           </Form.Item>
-          <Form.Item label="Website">
-            {getFieldDecorator('website', {
-              rules: [{ required: true, message: 'Please input website!' }],
-            })(
-              <AutoComplete
-                dataSource={websiteOptions}
-                onChange={this.handleWebsiteChange}
-                placeholder="website"
-              >
-                <Input />
-              </AutoComplete>,
-            )}
-          </Form.Item>
-          <Form.Item label="Captcha" extra="We must make sure that your are a human.">
+          <Form.Item label="验证码" extra="为了辨别是否人为操作">
             <Row gutter={8}>
               <Col span={12}>
                 {getFieldDecorator('captcha', {
-                  rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                  rules: [{ required: true, message: '请输入验证码' }],
                 })(<Input />)}
               </Col>
               <Col span={12}>
-                <Button>Get captcha</Button>
+                <Button>获取验证码</Button>
               </Col>
             </Row>
           </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item wrapperCol={{ span: 6, offset: 10 }} style={{ marginBottom: 0 }}>
             {getFieldDecorator('agreement', {
+              rules: [{ required: true, message: '请确认： 已阅读！' }],
               valuePropName: 'checked',
             })(
               <Checkbox>
-                I have read the <a href="*">agreement</a>
+                已阅读 <a href="*">协议</a>
               </Checkbox>,
             )}
           </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item wrapperCol={{ span: 4, offset: 10 }}>
             <Button type="primary" htmlType="submit">
-              Register
+              保存
           </Button>
           </Form.Item>
         </Form>
