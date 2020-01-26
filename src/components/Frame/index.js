@@ -139,6 +139,8 @@ class Frame extends Component {
               mode="inline"
               // 被选中标签高亮显示
               selectedKeys={[selectKeysArr.join('/')]}
+              // 这里不用下面这种方式，是因为当进入 edit 页面时会更改 location 中的 pathname ，从而导致选项卡失去高亮（与下面的 item.pathname 不相等）
+              // selectedKeys={[this.props.location.pathname]}
               onClick={this.onMenuClick}
               style={{
                 height: '100%',

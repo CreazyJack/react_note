@@ -11,6 +11,7 @@ import {
   Col,
   Checkbox,
   Button,
+  Spin
 } from 'antd'
 import './setting.less'
 import { connect } from 'react-redux'
@@ -28,11 +29,11 @@ function getBase64(img, callback) {
 function beforeUpload(file) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
   if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!')
+    message.error('你只能上传jpg或png格式的文件!')
   }
   const isLt2M = file.size / 1024 / 1024 < 2
   if (!isLt2M) {
-    message.error('Image must smaller than 2MB!')
+    message.error('图片必须小于2MB!')
   }
   return isJpgOrPng && isLt2M
 }
@@ -52,8 +53,13 @@ class Setting extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    var agree = this.props.form.getFieldValue('agreement')
     this.props.form.validateFieldsAndScroll((err, values) => {
+      /* 
+        如果有错误，网页还继续执行，可以加一个 if 语句
+        if (err) {
+          return
+        }
+      */
       if (!err) {
         console.log('Received values of form: ', values)
         this.btn()
@@ -90,7 +96,7 @@ class Setting extends Component {
   compareToFirstPassword = (rule, value, callback) => {
     const { form } = this.props
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!')
+      callback('两次输入应一致!')
     } else {
       callback()
     }
@@ -146,18 +152,6 @@ class Setting extends Component {
         md: { span: 12 },
       },
     }
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 16,
-          offset: 0,
-        },
-      },
-    }
     const prefixSelector = getFieldDecorator('prefix', {
       initialValue: '86',
     })(
@@ -186,10 +180,10 @@ class Setting extends Component {
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               beforeUpload={beforeUpload}
               onChange={this.handleChange}
-
             >
-              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%', height: '100%' }} /> : uploadButton}
-
+              <Spin spinning={this.state.loading}>
+                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%', height: '100%' }} /> : uploadButton}
+              </Spin>
             </Upload>)}
           </Form.Item>
           <Form.Item label="邮箱">
