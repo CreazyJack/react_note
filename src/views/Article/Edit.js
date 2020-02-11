@@ -3,6 +3,8 @@ import { Card, Button, Form, Icon, Input, DatePicker, Spin, message } from 'antd
 import E from 'wangeditor'
 import './edit.less'
 import moment from 'moment'
+
+
 @Form.create()
 class Edit extends Component {
   constructor() {
@@ -70,6 +72,7 @@ class Edit extends Component {
           style={{}}
           extra={<Button onClick={() => this.props.history.goBack()}>取消</Button>}
         >
+        
           <Form layout="horizontal" onSubmit={this.handleSubmit} >
             <Form.Item label='标题' {...formItemLayout}>
               {getFieldDecorator('title', {
@@ -113,7 +116,6 @@ class Edit extends Component {
                 <DatePicker showTime placeholder="选择时间" />
               ,
               )}
-
             </Form.Item>
             <Form.Item label='内容' wrapperCol={{ span: 12, offset: 0 }} labelCol={{ span: 4, offset: 2 }} >
               {getFieldDecorator('content', {
@@ -126,7 +128,7 @@ class Edit extends Component {
             <Form.Item wrapperCol={{ offset: 6 }}>
               <Button type="primary" htmlType="submit">
                 保存修改
-            </Button>
+              </Button>
             </Form.Item>
           </Form>
         </Card>

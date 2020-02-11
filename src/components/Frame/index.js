@@ -1,15 +1,42 @@
-import React, { Component } from 'react'
-import { Layout, Menu, Icon, Badge, Dropdown, Avatar, Button } from 'antd'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import React, {
+  Component
+} from 'react'
+import {
+  Layout,
+  Menu,
+  Icon,
+  Badge,
+  Dropdown,
+  Avatar,
+  Button
+} from 'antd'
+import {
+  connect
+} from 'react-redux'
+import {
+  withRouter
+} from 'react-router-dom'
 import Logo from './Logo.png'
 import "./Frame.less"
-import { getNotificationList } from '../../actions/Notifications'
-import { logOut } from '../../actions/user'
-import { PeterRiver, GreenSea, Carrot, Default } from '../../actions/theme'
+import {
+  getNotificationList
+} from '../../actions/Notifications'
+import {
+  logOut
+} from '../../actions/user'
+import {
+  PeterRiver,
+  GreenSea,
+  Carrot,
+  Default
+} from '../../actions/theme'
 
 
-const { Header, Content, Sider } = Layout
+const {
+  Header,
+  Content,
+  Sider
+} = Layout
 const mapState = state => {
   console.log('主框架的state', state)
   // 通过另一种方式判断👇
@@ -24,15 +51,28 @@ const mapState = state => {
 }
 
 // 使用 antd 中的 layout 栅格功能
-@connect(mapState, { getNotificationList, logOut, PeterRiver, GreenSea, Carrot, Default })
+@connect(mapState, {
+  getNotificationList,
+  logOut,
+  PeterRiver,
+  GreenSea,
+  Carrot,
+  Default
+})
 @withRouter
 class Frame extends Component {
   componentDidMount() {
     this.props.getNotificationList()
   }
   // 为 onClick 功能创建函数，通过引入 withRouter 来使用 <Route></Route> 组件中的属性
-  onMenuClick = ({ key }) => { this.props.history.push(key) }
-  onDropDownMenuClick = ({ key }) => {
+  onMenuClick = ({
+    key
+  }) => {
+    this.props.history.push(key)
+  }
+  onDropDownMenuClick = ({
+    key
+  }) => {
     if (key === '/logIn') {
       this.props.logOut()
     } else {
@@ -149,6 +189,7 @@ class Frame extends Component {
               }}
             >
               {
+                // 这里通过 key 来传入 pathname，方便点击时传入 key 参数来实现相应页面跳转
                 this.props.menus.map(item => <Menu.Item key={item.pathname}><Icon type={item.icon} />{item.title}</Menu.Item>)
               }
             </Menu>
@@ -171,4 +212,4 @@ class Frame extends Component {
   }
 }
 
-export default Frame 
+export default Frame

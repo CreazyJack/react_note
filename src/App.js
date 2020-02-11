@@ -32,7 +32,7 @@ class App extends Component {
                 key={route.pathname}
                 path={route.pathname}
                 render={(routeProps) => {
-                  console.log(route)
+                  // 在这里做权限管理👇
                   const hasPermission = route.role.includes(this.props.role)
                   return hasPermission ? <route.component {...routeProps} /> : <Redirect to='/admin/NoAuth' />
                 }}

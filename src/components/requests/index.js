@@ -61,3 +61,5 @@ export const getBrowseAmount = () => {
 export const loginRequest = ({ username, password, remember }) => {
   return service1.post('/api/v1/login', { username, password, remember })
 }
+
+
